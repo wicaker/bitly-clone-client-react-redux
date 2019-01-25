@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import { axiosInstance, urlName } from '../../config/Api';
 import { Row, Col, Input, Button, Modal } from "react-materialize";
 import Profile from "./profile";
 import openSocket from "socket.io-client";
@@ -16,15 +16,15 @@ class MyUrl extends Component {
   }
 
   componentWillMount() {
-    axios
-      .get("http://localhost:5000/api/shorters")
+    axiosInstance
+      .get("/api/shorters")
       .then(res => {
         this.setState({
           listUrl: res.data
         });
       })
       .catch(err => console.log(err));
-    const socket = openSocket("http://localhost:5000");
+    const socket = openSocket(urlName);
     socket.on("shorter", res => {
       const data = this.state.listUrl.map(value => {
         if (value.shortUrl === res.shortUrl) {
@@ -58,7 +58,7 @@ class MyUrl extends Component {
     e.preventDefault();
   }
   handlDelete(urlId) {
-    axios("http://localhost:5000/api/shorters/delete/" + urlId, {
+    axiosInstance("/api/shorters/delete/" + urlId, {
       method: "DELETE"
     })
       .then(resData => {

@@ -1,10 +1,10 @@
-import axios from "axios";
+import { axiosInstance } from '../../config/Api';
 import setAuthToken from "../../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 
 export const registerUser = newUser => dispatch => {
-  axios
-    .post("http://localhost:5000/api/users/register", newUser)
+  axiosInstance
+    .post("/api/users/register", newUser)
     .then(res => console.log(res))
     .then(res => {
       dispatch({ type: "REGISTER_SUCCESS" });
@@ -15,8 +15,8 @@ export const registerUser = newUser => dispatch => {
 };
 
 export const loginUser = userData => dispatch => {
-  axios
-    .post("http://localhost:5000/api/users/login", userData)
+  axiosInstance
+    .post("/api/users/login", userData)
     .then(res => {
       // Save to localstorage
       const { token } = res.data;
