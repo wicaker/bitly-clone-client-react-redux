@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Row, Input, Button } from "react-materialize";
-import axios from "axios";
+import { axiosInstance, urlName } from '../../config/Api';
 
 class EditUrl extends Component {
   state = {
@@ -17,12 +17,12 @@ class EditUrl extends Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    axios
+    axiosInstance
       .put(
-        "http://localhost:5000/api/shorters/update/" + this.props.props._id,
+        "/api/shorters/update/" + this.props.props._id,
         {
           ...this.state,
-          shortUrl: "http://localhost:5000/" + this.state.urlCode
+          shortUrl: urlName + this.state.urlCode
         }
       )
       .then(res => {
@@ -59,7 +59,7 @@ class EditUrl extends Component {
           <Input
             s={12}
             defaultValue={this.props.props.urlCode}
-            label="http://localhost:5000/"
+            label={urlName}
             id="urlCode"
             onChange={this.handleChange.bind(this)}
           />
