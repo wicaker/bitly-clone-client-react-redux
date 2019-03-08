@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const axiosInstance = axios.create({
-  baseURL: 'https://bitlyclonerefactory.herokuapp.com',
+  baseURL: 'http://localhost:5000',
 });
 
-export const urlName = 'https://bitlyclonerefactory.herokuapp.com/'
+export const urlName = 'http://localhost:5000/'
